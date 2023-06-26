@@ -1,0 +1,31 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.app-layout {
+    padding: 10px;
+}
+
+.logo-image {
+    width: 100px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 30px;
+    align-items: center;
+    background-color: #f0f0f0;
+    border-radius: 30px;
+}
+
+.header ul {
+    display: flex;
+}
+
+.header ul li {
+    list-style: none;
+    padding: 5px 30px;
+    font-size: 24px;
+}
