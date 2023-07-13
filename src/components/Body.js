@@ -1,8 +1,9 @@
 import RestCards from "./Restcard";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 
 import useOnlinests from "../utlis/useOnlinests";
+import userContext from "../utlis/usecontext";
 
 const Body = () => {
   let [ver, setver] = useState(true);
@@ -24,13 +25,14 @@ const Body = () => {
       "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.8113309&lng=80.2303145&page_type=DESKTOP_WEB_LISTING"
     );
     const da = await res.json();
+    console.log(da);
     const data = da.data.cards[2].data.data.cards;
     let newdata = data.filter((ele) => {
       return ele.data.name.toLowerCase().includes(text.toLowerCase());
     });
     console.log(newdata);
     if (newdata.length > 0) setdata(newdata);
-    else apiData();
+    else apeData();
   };
   useEffect(() => {
     apeData();
@@ -45,36 +47,62 @@ const Body = () => {
 
   let ff = useOnlinests();
   if (ff === false) return <h1>thappu</h1>;
-
+  const { user, setUser } = useContext(userContext);
   return (
     <div className="body-container">
       <div className="searchbar">
-        <div className="search">
+        <div className="ml-6 flex items-center  w-[1150px]">
           <input
+            className="border rounded-lg shadow-lg m-5"
             type="text"
             onChange={(e) => {
               setText(e.target.value);
             }}
           ></input>
           <button
+            className="px-5 h-8  rounded-lg bg-slate-200"
             onClick={() => {
               toFilter();
             }}
           >
             search
           </button>
+          <button
+            className="border px-5 bg-slate-300 ml-5 rounded-lg h-8"
+            onClick={(e) => {
+              if (ver) chn();
+              else che();
+            }}
+          >
+            {ver ? "show best restaurant" : "show all restaurant"}
+          </button>
+          <input
+            className="border mx-10"
+            type="text"
+            onChange={(e) => {
+              setUser({
+                user: {
+                  ...user,
+                  name: e.target.value,
+                },
+              });
+            }}
+          ></input>
+          <input
+            className="border mx-10"
+            type="text"
+            onChange={(e) => {
+              setUser({
+                user: {
+                  ...user,
+                  email: e.target.value,
+                },
+              });
+            }}
+          ></input>
         </div>
-        <button
-          className="btn"
-          onClick={(e) => {
-            if (ver) chn();
-            else che();
-          }}
-        >
-          {ver ? "show best restaurant" : "show all restaurant"}
-        </button>
       </div>
-      <div className="res-container">
+      <div className="flex flex-wrap m-10">
         {dataa.map((ele) => (
           <Link to={"/rest/" + ele.data.id} key={ele.data.id}>
             <RestCards Restdata={ele} />

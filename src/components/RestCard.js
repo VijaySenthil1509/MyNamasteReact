@@ -11,10 +11,10 @@ const RestCards = (props) => {
     avgRating,
   } = Restdata.data;
   return (
-    <div className="res-card">
-      <img className="res-logo" src={CDN_URL + cloudinaryImageId}></img>
+    <div className=" w-60 rounded-lg h-80 bg-gray-200 text-center m-2">
+      <img src={CDN_URL + cloudinaryImageId}></img>
       <h1>{name} </h1>
-      <h2>{cuisines} </h2>
+      <h2>{cuisines.join(", ")} </h2>
       <h3>{costForTwoString} </h3>
       <h4>{slaString} </h4>
       <h4>{avgRating + " ratings"} </h4>

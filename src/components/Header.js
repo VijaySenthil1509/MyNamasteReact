@@ -1,8 +1,11 @@
 import { LOGO_URL } from "../utlis/constant";
 import { Link } from "react-router-dom";
 import useOnlinests from "../utlis/useOnlinests";
+import { useContext } from "react";
+import userContext from "../utlis/usecontext";
 const Header = () => {
   let online = useOnlinests();
+  const details = useContext(userContext);
   return (
     <div className="flex items-center rounded-xl  m-5 justify-between p-5 bg-gray-300">
       <img
@@ -19,9 +22,12 @@ const Header = () => {
           <Link to="/about">About us</Link>
         </li>
         <li className="p-5">
-          <Link to="/rest">Contact us</Link>
+          <Link to="/contact">Contact us</Link>
         </li>
-        <li className="p-5">cart</li>
+        <li className="p-5">{details.user.name}</li>
+        <li className="p-5">
+          <Link to="/cart">Cart</Link>
+        </li>
       </ul>
     </div>
   );
